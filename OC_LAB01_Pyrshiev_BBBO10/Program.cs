@@ -17,6 +17,7 @@ namespace OC_LAB01_Pyrshiev_BBBO10
     }
     class Program
     {
+        static string path = @"D:\Documents";
         public static async Task Main(string[] args)
         {
         mark:
@@ -65,7 +66,7 @@ namespace OC_LAB01_Pyrshiev_BBBO10
             static void Second()
             {
 
-                string path = @"D:\Documents";
+                
                 DirectoryInfo dirInfo = new DirectoryInfo(path);
                 if (!dirInfo.Exists)
                 {
@@ -105,7 +106,6 @@ namespace OC_LAB01_Pyrshiev_BBBO10
             //Третье задание
             static async Task Third(string[] args)
             {
-                string path = @"D:\Documents";
 
                 // сохранение данных
                 using (FileStream fs = new FileStream($"{path}\\user.json", FileMode.OpenOrCreate))
@@ -136,7 +136,6 @@ namespace OC_LAB01_Pyrshiev_BBBO10
             */
             static void Fourth()
             {
-                string path = @"D:\Documents";
 
                 List<User> users = new List<User>();
                 XmlDocument xDoc = new XmlDocument();
