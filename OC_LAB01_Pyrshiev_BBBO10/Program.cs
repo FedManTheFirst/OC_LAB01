@@ -19,25 +19,26 @@ namespace OC_LAB01_Pyrshiev_BBBO10
     {
         public static async Task Main(string[] args)
         {
+        mark:
             Console.WriteLine("Введите номер задания(1-5): ");
             string choice = Console.ReadLine();
             switch (choice)
             {
                 case "1":
                     First();
-                    break;
+                    goto mark;
                 case "2":
                     Second();
-                    break;
+                    goto mark;
                 case "3":
-                await Third(args);
-                    break;
+                    await Third(args);
+                    goto mark;
                 case "4":
                     Fourth();
-                    break;
+                    goto mark;
                 case "5":
                     Fifth();
-                    break;
+                    goto mark;
                 default:
                     break;
 
@@ -64,7 +65,7 @@ namespace OC_LAB01_Pyrshiev_BBBO10
             static void Second()
             {
 
-                string path = @"C:\Documents";
+                string path = @"D:\Documents";
                 DirectoryInfo dirInfo = new DirectoryInfo(path);
                 if (!dirInfo.Exists)
                 {
@@ -93,38 +94,40 @@ namespace OC_LAB01_Pyrshiev_BBBO10
                     // декодируем байты в строку
                     string textFromFile = System.Text.Encoding.Default.GetString(array);
                     Console.WriteLine($"Текст из файла: {textFromFile}");
+                    Console.ReadLine();
                 }
 
                 // удаление файла
-                File.Delete(@"C:\Documents\note.txt");
+                File.Delete(@"D:\Documents\note.txt");
                 Console.WriteLine("Файл удалён");
                 Console.ReadLine();
             }
             //Третье задание
-              static async Task Third(string[] args)
-              {
-                  string path = @"C:\Documents";
+            static async Task Third(string[] args)
+            {
+                string path = @"D:\Documents";
 
-                  // сохранение данных
-                  using (FileStream fs = new FileStream($"{path}\\user.json", FileMode.OpenOrCreate))
-                  {
+                // сохранение данных
+                using (FileStream fs = new FileStream($"{path}\\user.json", FileMode.OpenOrCreate))
+                {
                     User tom = new User() { Name = "Tom", Age = 35 };
-                      await JsonSerializer.SerializeAsync<User>(fs, tom);
-                      Console.WriteLine("Data has been saved to file");
-                  }
+                    await JsonSerializer.SerializeAsync<User>(fs, tom);
+                    Console.WriteLine("Data has been saved to file");
+                }
 
-                  // чтение данных
-                  using (FileStream fs = new FileStream($"{path}\\user.json", FileMode.OpenOrCreate))
-                  {
+                // чтение данных
+                using (FileStream fs = new FileStream($"{path}\\user.json", FileMode.OpenOrCreate))
+                {
                     User restoredPerson = await JsonSerializer.DeserializeAsync<User>(fs);
-                      Console.WriteLine($"Name: {restoredPerson.Name}  Age: {restoredPerson.Age}");
-                  }
+                    Console.WriteLine($"Name: {restoredPerson.Name}  Age: {restoredPerson.Age}");
+                    Console.ReadLine();
+                }
 
-                  // удаление файла
-                  File.Delete(@"C:\Documents\user.json");
-                  Console.WriteLine("Файл удалён");
-                  Console.ReadLine();
-              }
+                // удаление файла
+                File.Delete(@"D:\Documents\user.json");
+                Console.WriteLine("Файл удалён");
+                Console.ReadLine();
+            }
             //Четвёртое задание
             /*Перед выполнением создать файл вида:
 <?xml version="1.0" encoding="utf-8"?>
@@ -133,7 +136,7 @@ namespace OC_LAB01_Pyrshiev_BBBO10
             */
             static void Fourth()
             {
-                string path = @"C:\Documents";
+                string path = @"D:\Documents";
 
                 List<User> users = new List<User>();
                 XmlDocument xDoc = new XmlDocument();
@@ -181,24 +184,31 @@ namespace OC_LAB01_Pyrshiev_BBBO10
                 }
                 foreach (User u in users)
                     Console.WriteLine($"Имя: {u.Name} Возраст: {u.Age}");
+                Console.ReadLine();
 
                 // удаление файла
-                File.Delete(@"C:\Documents\users.xml");
+                File.Delete(@"D:\Documents\users.xml");
                 Console.WriteLine("Файл удалён");
                 Console.ReadLine();
             }
             //Пятое задание
             static void Fifth()
             {
-                string sourceFile = @"C:\Documents\user.txt"; // исходный файл
-                string compressedFile = @"C:\Documents\user.gz"; // сжатый файл
-                string targetFile = @"C:\Documents\user_new.txt"; // восстановленный файл
+                string sourceFile = @"D:\Documents\user.txt"; // исходный файл
+                string compressedFile = @"D:\Documents\user.gz"; // сжатый файл
+                string targetFile = @"D:\Documents\user_new.txt"; // восстановленный файл
 
                 // создание сжатого файла
                 Compress(sourceFile, compressedFile);
+
                 // чтение из сжатого файла
                 Decompress(compressedFile, targetFile);
+                Console.ReadLine();
 
+                // удаление файла
+                File.Delete(@"D:\Documents\user_new.txt");
+                File.Delete(@"D:\Documents\user.gz");
+                Console.WriteLine("Файлы удалены");
                 Console.ReadLine();
             }
             //Архивирование
@@ -241,5 +251,3 @@ namespace OC_LAB01_Pyrshiev_BBBO10
         }
     }
 }
-
-
